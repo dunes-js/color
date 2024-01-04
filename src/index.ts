@@ -10,7 +10,12 @@ export class Color
   )
   {}
 
-  decimal()
+  rgba(): [number, number, number, number] 
+  {
+    return [this.r, this.g, this.b, this.a];
+  }
+
+  decimal(): [number, number, number, number] 
   {
     return [this.r/255, this.g/255, this.b/255, this.a/255];
   }
