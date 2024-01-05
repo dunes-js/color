@@ -1,5 +1,6 @@
 type ColorVec3 = [number, number, number];
 type ColorVec4 = [number, number, number, number];
+type ColorVec4i = [number, number, number, number?];
 
 export class Color
 {
@@ -21,7 +22,17 @@ export class Color
     return [this.r, this.g, this.b, this.a];
   }
 
-  static fromRGB([r,g,b,a = 255]: [number, number, number, number?]): Color
+  hsla(): ColorVec4
+  {
+    return HSL.fromRGBd(this.decimal());
+  }
+
+  hex(): string
+  {
+    return HEX.fromRGB(this.rgba());
+  }
+
+  static fromRGB([r,g,b,a = 255]: ColorVec4i): Color
   {
     return new Color(r/255, g/255, b/255, a/255);
   }
@@ -102,16 +113,32 @@ export class Color
 
 class HEX
 {
-  static value(str: string, m = 1) 
+  static value(str: string, m = 1)
+  : number
   {
     return "0123456789ABCDEF".indexOf(str.toUpperCase()) * m;
+  }
+
+  static fromRGB([r,g,b,a = 255]: ColorVec4i, hash = true)
+  : string
+  {
+    let str = ""
+    if (hash) str += "#";
+
+    str += r.toString(16);
+    str += g.toString(16);
+    str += b.toString(16);
+    str += a.toString(16);
+
+    return str
   }
 }
 
 class HSL
 {
 
-  static getLightFromHsl([h,s,l]: ColorVec4) {
+  static getLightFromHsl([h,s,l]: ColorVec4) 
+  {
 
     let chroma = this.#getChroma(l, s)
     let x = this.#getSecondLargest(chroma, h)
@@ -120,7 +147,36 @@ class HSL
     return {chroma, x, light}
   }
 
-  static rgbFromHue(chroma: number, h: number, x: number): ColorVec3 
+  static fromRGBd([r,g,b,a = 1]: ColorVec4i)
+  : ColorVec4
+  {
+    let cmin  = Math.min(r, g, b),
+    cmax  = Math.max(r, g, b),
+    delta = cmax - cmin,
+    h = 0,
+    s = 0,
+    l = 0
+
+    if (delta == 0) h = 0;
+    else if (cmax == r) h = ((g - b) / delta) % 6;
+    else if (cmax == g) h =  (b - r) / delta  + 2;
+    else h = (r - g) / delta + 4;
+
+    h = Math.round(h * 60);
+
+    if (h < 0) h += 360;
+
+      l = (cmax + cmin) / 2;
+      s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+      s = +(s * 100).toFixed(1);
+      l = +(l * 100).toFixed(1);
+      a = +(a * 100).toFixed(1);
+
+      return [h, s, l, a]
+    }
+
+  static rgbFromHue(chroma: number, h: number, x: number)
+  : ColorVec3 
   {
     let [r,g,b]: ColorVec3 = [0, 0, 0];
 
