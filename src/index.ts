@@ -37,7 +37,7 @@ export class Color
     return `Color(${
       hx
       ? this.hex()
-      : `${this.r} ${this.g} ${this.b} ${this.a}`
+      : `${this.r.toFixed(1)} ${this.g.toFixed(1)} ${this.b.toFixed(1)} ${this.a.toFixed(1)}`
     })`;
   }
 
