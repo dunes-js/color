@@ -134,10 +134,18 @@ class HEX
     let str = ""
     if (hash) str += "#";
 
-    str += r.toString(16);
-    str += g.toString(16);
-    str += b.toString(16);
-    str += a.toString(16);
+    const rs = r.toString(16)
+    str += rs == "0" ? "00": rs;
+
+    const gs = g.toString(16)
+    str += rs == "0" ? "00": rs;
+
+    const bs = b.toString(16)
+    str += rs == "0" ? "00": rs;
+
+    const as = a.toString(16)
+    str += rs == "0" ? "00": rs;
+
 
     return str
   }
