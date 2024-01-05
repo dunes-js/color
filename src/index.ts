@@ -27,9 +27,9 @@ export class Color
     return HSL.fromRGBd(this.decimal());
   }
 
-  hex(): string
+  hex(hash = true): string
   {
-    return HEX.fromRGB(this.rgba());
+    return HEX.fromRGB(this.rgba(), hash);
   }
 
   toString(hx = false)
