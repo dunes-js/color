@@ -138,13 +138,13 @@ class HEX
     str += rs == "0" ? "00": rs;
 
     const gs = g.toString(16)
-    str += rs == "0" ? "00": rs;
+    str += gs == "0" ? "00": gs;
 
     const bs = b.toString(16)
-    str += rs == "0" ? "00": rs;
+    str += bs == "0" ? "00": bs;
 
     const as = a.toString(16)
-    str += rs == "0" ? "00": rs;
+    str += as == "0" ? "00": as;
 
 
     return str
