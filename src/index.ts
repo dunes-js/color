@@ -32,6 +32,15 @@ export class Color
     return HEX.fromRGB(this.rgba());
   }
 
+  toString(hx = false)
+  {
+    return `Color(${
+      hx
+      ? this.hex()
+      : `${this.r} ${this.g} ${this.b} ${this.a}`
+    })`;
+  }
+
   static fromRGB([r,g,b,a = 255]: ColorVec4i): Color
   {
     return new Color(r/255, g/255, b/255, a/255);
