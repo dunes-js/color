@@ -1,6 +1,5 @@
 {
-	"extends": "../../tsconfig.json",
-
+  "exclude": ["test", "lib"],
 	"compilerOptions": {
 		"outDir": "lib",
 		"declaration": true,
@@ -14,6 +13,26 @@
     
 
 		"jsx": "react",
-		"jsxFactory": "Elem.create"
+		"jsxFactory": "Elem.create",
+
+    "verbatimModuleSyntax": true,
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "useUnknownInCatchVariables": true,
+    "alwaysStrict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "skipLibCheck": true
 	}
 }
